@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,4 +17,11 @@
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
+});
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+  $router->get('users',  'UserController@showAllUsers');
+  $router->post('add/user', 'UserController@store');
+  $router->post('delete/user/{id}', 'UserController@delete');
+  $router->post('update/user/{id}', 'UserController@update');
 });
